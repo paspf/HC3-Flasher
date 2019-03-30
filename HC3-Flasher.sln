@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HC3-Flasher", "HC3-Flasher\HC3-Flasher.csproj", "{C11ACECA-978B-4D57-A8AC-B410D8CFFADF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C11ACECA-978B-4D57-A8AC-B410D8CFFADF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C11ACECA-978B-4D57-A8AC-B410D8CFFADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C11ACECA-978B-4D57-A8AC-B410D8CFFADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C11ACECA-978B-4D57-A8AC-B410D8CFFADF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ED5181EB-7CE4-4FE1-A970-7ACBCF29B55F}
+	EndGlobalSection
+EndGlobal

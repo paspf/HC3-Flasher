@@ -20,6 +20,9 @@ using System.Windows.Forms;
  * - added: manual adustment of serial parameters
  * - added: profile selector
  * - added: store profiles
+ * 2019 10 03
+ * - fixed: exceptions handeled
+ * - added: option to edit profiles
  */
 namespace HC3_Flasher
 {
@@ -131,8 +134,15 @@ namespace HC3_Flasher
             sp.Parity = parity;
             sp.DataBits = profile.DataBits;
             sp.StopBits = stopBit;
-
-            sp.Open();
+            try
+            {
+                sp.Open();
+            }
+            catch (UnauthorizedAccessException) {
+                MessageBox.Show("Unable to acces COM Port: " + textBoxCom.Text, "HC3 Info");
+                return;
+            }
+            
             sp.Write(rawFile, 0, rawFile.Length);
             sp.Close();
             sp.Dispose();
@@ -152,17 +162,35 @@ namespace HC3_Flasher
 
         private void storeProfileButton_Click(object sender, EventArgs e)
         {
+            // no profile name in text box
             if (comboBoxProfileSelect.Text == "")
             {
                 MessageBox.Show("Please enter a profile name", "HC3 Info");
             }
+            // profile already exists
             else if (loadProfiles.profileExists(comboBoxProfileSelect.Text))
             {
-                MessageBox.Show("Profile already exists", "HC3 Info");
+                DialogResult dialogResult = MessageBox.Show("Profile already exists!\nDo you want the replace the stored profile?", "HC3 Info", MessageBoxButtons.YesNo);
+                // overwrite profile
+                if (dialogResult == DialogResult.Yes)
+                {
+                    Profile newProfile = checkConsistance();
+                    if (newProfile != null)
+                    {
+                        loadProfiles.dropProfile(loadProfiles.getProfileIndex(comboBoxProfileSelect.Text));
+                        loadProfiles.storeProfile(newProfile);
+                        refreshComboBoxProfileSelect();
+                    }
+                }
+                // do nothing
+                else if (dialogResult == DialogResult.No)
+                {
+                    return;
+                }
             }
+            // create new profile
             else
             {
-                // create new profile
                 Profile newProfile = checkConsistance();
                 if(newProfile != null)
                 {

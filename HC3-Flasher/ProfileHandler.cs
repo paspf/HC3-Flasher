@@ -46,10 +46,11 @@ namespace HC3_Flasher
                 }
             }
         }
+
         /*
          * loadProfiles
-         * This function loads the profiles out of an .cfg file
-         * The profiles are stored in the list profiles
+         * loads the profiles out of an .cfg file
+         * and stores them in the profiles list
          */
         public int loadProfiles()
         {
@@ -118,7 +119,7 @@ namespace HC3_Flasher
             return 0;
         }
         /*
-         * This function stores new created profiles
+         * store new created profiles
          * in the .cfg file
          * https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/file-system/how-to-write-to-a-text-file
          */
@@ -146,10 +147,28 @@ namespace HC3_Flasher
             File.WriteAllText(profileFileName, profileString);
             return 0;
         }
+
+        /*
+         * getProfileIndex
+         * return index of the given profileName
+         */
+        public int getProfileIndex(string profileName)
+        {
+            int index = 0;
+            foreach(Profile p in profiles)
+            {
+                if(p.Name == profileName)
+                {
+                    return index;
+                }
+                index++;
+            }
+            return -1;
+        }
+
         /*
          * dropProfile
-         * This function deletes a profile
-         * out of the cfg file
+         * delete the profile at the index
          */
         public int dropProfile(int toDropIndex)
         {
@@ -161,11 +180,10 @@ namespace HC3_Flasher
             profiles.RemoveAt(toDropIndex);
             return 0;
         }
+
         /*
          * profileExists
-         * This function checks with the name
-         * of the profile, if the profile already
-         * exists
+         * This function checks if the profile already exists
          */
         public bool profileExists(string toCompare)
         {

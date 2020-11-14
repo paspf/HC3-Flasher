@@ -30,7 +30,7 @@ namespace HC3_Flasher
         }
 
         /// <summary>
-        /// Get the profile object
+        /// Get the profile object.
         /// </summary>
         public Profiles Profiles
         {
@@ -38,7 +38,7 @@ namespace HC3_Flasher
         }
 
         /// <summary>
-        /// Get or Set the name of the default profile
+        /// Get or Set the name of the default profile.
         /// </summary>
         public string DefaultProfileName
         {
@@ -47,7 +47,7 @@ namespace HC3_Flasher
         }
 
         /// <summary>
-        /// Store the current configuration and all profiles
+        /// Store the current configuration and all profiles.
         /// </summary>
         public void Store()
         {
@@ -66,14 +66,14 @@ namespace HC3_Flasher
     }
 
     /// <summary>
-    /// Handles profiles
+    /// Handles profiles.
     /// </summary>
     class Profiles
     {
         List<Profile> profiles = new List<Profile>();
 
         /// <summary>
-        /// Handles profiles
+        /// Handles profiles.
         /// </summary>
         /// <param name="xmlSource">extract profiles from xml</param>
         public Profiles(ref XmlDocument xmlSource)
@@ -82,7 +82,7 @@ namespace HC3_Flasher
         }
 
         /// <summary>
-        /// Get all loaded profiles
+        /// Get all loaded profiles.
         /// </summary>
         public List<Profile> Get
         {
@@ -90,7 +90,7 @@ namespace HC3_Flasher
         }
 
         /// <summary>
-        /// Load all profiles from xml file
+        /// Load all profiles from xml file.
         /// https://stackoverflow.com/questions/4835891/extract-value-of-attribute-node-via-xpath
         /// </summary>
         /// <param name="xmlSource">xml source</param>
@@ -112,7 +112,7 @@ namespace HC3_Flasher
         }
 
         /// <summary>
-        /// Translate stop bits string to enum
+        /// Translate stop bits string to enum.
         /// </summary>
         /// <param name="stopBits"></param>
         /// <returns></returns>
@@ -134,7 +134,7 @@ namespace HC3_Flasher
         }
 
         /// <summary>
-        /// Translate stop bits enum to string
+        /// Translate stop bits enum to string.
         /// </summary>
         /// <param name="stopBits"></param>
         /// <returns></returns>
@@ -155,9 +155,9 @@ namespace HC3_Flasher
         }
 
         /// <summary>
-        /// Translate parity string to enum
+        /// Translate parity string to enum.
         /// </summary>
-        /// <param name="parity"></param>
+        /// <param name="parity">parity string</param>
         /// <returns></returns>
         public System.IO.Ports.Parity ParityStringToEnum(string parity)
         {
@@ -187,7 +187,7 @@ namespace HC3_Flasher
         }
 
         /// <summary>
-        /// Remove the profile on position x of the profiles list
+        /// Remove the profile on position x of the profiles list.
         /// </summary>
         /// <param name="index">position</param>
         public void Remove(int index)
@@ -196,7 +196,7 @@ namespace HC3_Flasher
         }
 
         /// <summary>
-        /// Check if a profile exists
+        /// Check if a profile exists.
         /// </summary>
         /// <param name="name">name of the profile</param>
         /// <returns>true if the profile exits</returns>
@@ -213,7 +213,7 @@ namespace HC3_Flasher
         }
 
         /// <summary>
-        /// Get the position of a specific profile
+        /// Get the position of a specific profile.
         /// </summary>
         /// <param name="name">name of the profile</param>
         /// <returns>position of the profile</returns>
@@ -230,7 +230,7 @@ namespace HC3_Flasher
         }
 
         /// <summary>
-        /// Store all profiles
+        /// Store all profiles.
         /// </summary>
         public void Store(ref XmlDocument xmlDest, ref XmlElement elem)
         {

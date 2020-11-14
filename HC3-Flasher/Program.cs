@@ -9,7 +9,7 @@ namespace HC3_Flasher
     static class Program
     {
         /// <summary>
-        /// Der Haupteinstiegspunkt für die Anwendung.
+        /// Main.
         /// </summary>
         [STAThread]
         static void Main()

@@ -54,6 +54,7 @@ namespace HC3_Flasher
             {
                 comboBoxProfileSelect.Items.Add(p.Name);
             }
+            comboBoxProfileSelect.SelectedIndex = comboBoxProfileSelect.Items.Count - 1;
         }
 
         /// <summary>

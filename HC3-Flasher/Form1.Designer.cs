@@ -52,34 +52,38 @@
             // 
             // textBoxFile
             // 
-            this.textBoxFile.Location = new System.Drawing.Point(72, 36);
+            this.textBoxFile.Location = new System.Drawing.Point(103, 49);
+            this.textBoxFile.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxFile.Name = "textBoxFile";
-            this.textBoxFile.Size = new System.Drawing.Size(347, 20);
+            this.textBoxFile.Size = new System.Drawing.Size(408, 22);
             this.textBoxFile.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Location = new System.Drawing.Point(15, 17);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
+            this.label1.Size = new System.Drawing.Size(65, 16);
             this.label1.TabIndex = 2;
             this.label1.Text = "COM Port";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 39);
+            this.label2.Location = new System.Drawing.Point(15, 52);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 13);
+            this.label2.Size = new System.Drawing.Size(71, 16);
             this.label2.TabIndex = 3;
             this.label2.Text = "Binary File";
             // 
             // FlashButton
             // 
-            this.FlashButton.Location = new System.Drawing.Point(502, 9);
+            this.FlashButton.Location = new System.Drawing.Point(621, 11);
+            this.FlashButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.FlashButton.Name = "FlashButton";
-            this.FlashButton.Size = new System.Drawing.Size(69, 46);
+            this.FlashButton.Size = new System.Drawing.Size(83, 63);
             this.FlashButton.TabIndex = 4;
             this.FlashButton.Text = "Flash!";
             this.FlashButton.UseVisualStyleBackColor = true;
@@ -88,34 +92,38 @@
             // comboBoxProfileSelect
             // 
             this.comboBoxProfileSelect.FormattingEnabled = true;
-            this.comboBoxProfileSelect.Location = new System.Drawing.Point(16, 62);
+            this.comboBoxProfileSelect.Location = new System.Drawing.Point(20, 84);
+            this.comboBoxProfileSelect.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboBoxProfileSelect.Name = "comboBoxProfileSelect";
-            this.comboBoxProfileSelect.Size = new System.Drawing.Size(96, 21);
+            this.comboBoxProfileSelect.Size = new System.Drawing.Size(116, 24);
             this.comboBoxProfileSelect.TabIndex = 5;
             this.comboBoxProfileSelect.SelectedIndexChanged += new System.EventHandler(this.comboBoxProfileSelect_SelectedIndexChanged);
             // 
             // textBoxBaudRate
             // 
-            this.textBoxBaudRate.Location = new System.Drawing.Point(182, 62);
+            this.textBoxBaudRate.Location = new System.Drawing.Point(235, 84);
+            this.textBoxBaudRate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxBaudRate.Name = "textBoxBaudRate";
-            this.textBoxBaudRate.Size = new System.Drawing.Size(64, 20);
+            this.textBoxBaudRate.Size = new System.Drawing.Size(55, 22);
             this.textBoxBaudRate.TabIndex = 6;
             // 
             // labelBaudRate
             // 
             this.labelBaudRate.AutoSize = true;
-            this.labelBaudRate.Location = new System.Drawing.Point(118, 65);
+            this.labelBaudRate.Location = new System.Drawing.Point(154, 87);
+            this.labelBaudRate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelBaudRate.Name = "labelBaudRate";
-            this.labelBaudRate.Size = new System.Drawing.Size(58, 13);
+            this.labelBaudRate.Size = new System.Drawing.Size(72, 16);
             this.labelBaudRate.TabIndex = 7;
             this.labelBaudRate.Text = "Baud Rate";
             // 
             // labelParity
             // 
             this.labelParity.AutoSize = true;
-            this.labelParity.Location = new System.Drawing.Point(252, 65);
+            this.labelParity.Location = new System.Drawing.Point(327, 87);
+            this.labelParity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelParity.Name = "labelParity";
-            this.labelParity.Size = new System.Drawing.Size(33, 13);
+            this.labelParity.Size = new System.Drawing.Size(42, 16);
             this.labelParity.TabIndex = 8;
             this.labelParity.Text = "Parity";
             // 
@@ -123,49 +131,55 @@
             // 
             this.comboBoxParity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.comboBoxParity.FormattingEnabled = true;
-            this.comboBoxParity.Location = new System.Drawing.Point(291, 62);
+            this.comboBoxParity.Location = new System.Drawing.Point(374, 84);
+            this.comboBoxParity.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboBoxParity.Name = "comboBoxParity";
-            this.comboBoxParity.Size = new System.Drawing.Size(64, 21);
+            this.comboBoxParity.Size = new System.Drawing.Size(78, 24);
             this.comboBoxParity.TabIndex = 9;
             // 
             // labelDataBits
             // 
             this.labelDataBits.AutoSize = true;
-            this.labelDataBits.Location = new System.Drawing.Point(361, 65);
+            this.labelDataBits.Location = new System.Drawing.Point(465, 87);
+            this.labelDataBits.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelDataBits.Name = "labelDataBits";
-            this.labelDataBits.Size = new System.Drawing.Size(47, 13);
+            this.labelDataBits.Size = new System.Drawing.Size(59, 16);
             this.labelDataBits.TabIndex = 10;
             this.labelDataBits.Text = "DataBits";
             // 
             // textBoxDataBits
             // 
-            this.textBoxDataBits.Location = new System.Drawing.Point(414, 62);
+            this.textBoxDataBits.Location = new System.Drawing.Point(532, 84);
+            this.textBoxDataBits.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxDataBits.Name = "textBoxDataBits";
-            this.textBoxDataBits.Size = new System.Drawing.Size(32, 20);
+            this.textBoxDataBits.Size = new System.Drawing.Size(43, 22);
             this.textBoxDataBits.TabIndex = 11;
             // 
             // labelStopBits
             // 
             this.labelStopBits.AutoSize = true;
-            this.labelStopBits.Location = new System.Drawing.Point(450, 65);
+            this.labelStopBits.Location = new System.Drawing.Point(582, 87);
+            this.labelStopBits.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelStopBits.Name = "labelStopBits";
-            this.labelStopBits.Size = new System.Drawing.Size(46, 13);
+            this.labelStopBits.Size = new System.Drawing.Size(58, 16);
             this.labelStopBits.TabIndex = 12;
             this.labelStopBits.Text = "StopBits";
             // 
             // comboBoxStopBits
             // 
             this.comboBoxStopBits.FormattingEnabled = true;
-            this.comboBoxStopBits.Location = new System.Drawing.Point(502, 62);
+            this.comboBoxStopBits.Location = new System.Drawing.Point(650, 84);
+            this.comboBoxStopBits.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboBoxStopBits.Name = "comboBoxStopBits";
-            this.comboBoxStopBits.Size = new System.Drawing.Size(42, 21);
+            this.comboBoxStopBits.Size = new System.Drawing.Size(53, 24);
             this.comboBoxStopBits.TabIndex = 13;
             // 
             // storeProfileButton
             // 
-            this.storeProfileButton.Location = new System.Drawing.Point(16, 89);
+            this.storeProfileButton.Location = new System.Drawing.Point(20, 119);
+            this.storeProfileButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.storeProfileButton.Name = "storeProfileButton";
-            this.storeProfileButton.Size = new System.Drawing.Size(75, 23);
+            this.storeProfileButton.Size = new System.Drawing.Size(122, 35);
             this.storeProfileButton.TabIndex = 14;
             this.storeProfileButton.Text = "Store Profile";
             this.storeProfileButton.UseVisualStyleBackColor = true;
@@ -173,9 +187,10 @@
             // 
             // dropProfileButton
             // 
-            this.dropProfileButton.Location = new System.Drawing.Point(98, 88);
+            this.dropProfileButton.Location = new System.Drawing.Point(169, 119);
+            this.dropProfileButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dropProfileButton.Name = "dropProfileButton";
-            this.dropProfileButton.Size = new System.Drawing.Size(75, 23);
+            this.dropProfileButton.Size = new System.Drawing.Size(122, 35);
             this.dropProfileButton.TabIndex = 15;
             this.dropProfileButton.Text = "Drop Profile";
             this.dropProfileButton.UseVisualStyleBackColor = true;
@@ -184,25 +199,28 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(483, 99);
+            this.label3.Location = new System.Drawing.Point(591, 133);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 13);
+            this.label3.Size = new System.Drawing.Size(72, 16);
             this.label3.TabIndex = 16;
             this.label3.Text = "2020-11-14";
             // 
             // comboBoxComPort
             // 
             this.comboBoxComPort.FormattingEnabled = true;
-            this.comboBoxComPort.Location = new System.Drawing.Point(72, 9);
+            this.comboBoxComPort.Location = new System.Drawing.Point(103, 11);
+            this.comboBoxComPort.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboBoxComPort.Name = "comboBoxComPort";
-            this.comboBoxComPort.Size = new System.Drawing.Size(347, 21);
+            this.comboBoxComPort.Size = new System.Drawing.Size(408, 24);
             this.comboBoxComPort.TabIndex = 17;
             // 
             // buttonSelectBinary
             // 
-            this.buttonSelectBinary.Location = new System.Drawing.Point(425, 10);
+            this.buttonSelectBinary.Location = new System.Drawing.Point(524, 11);
+            this.buttonSelectBinary.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonSelectBinary.Name = "buttonSelectBinary";
-            this.buttonSelectBinary.Size = new System.Drawing.Size(71, 46);
+            this.buttonSelectBinary.Size = new System.Drawing.Size(88, 63);
             this.buttonSelectBinary.TabIndex = 18;
             this.buttonSelectBinary.Text = "Select\r\nBinary";
             this.buttonSelectBinary.UseVisualStyleBackColor = true;
@@ -210,9 +228,10 @@
             // 
             // buttonSetAsDefault
             // 
-            this.buttonSetAsDefault.Location = new System.Drawing.Point(179, 88);
+            this.buttonSetAsDefault.Location = new System.Drawing.Point(315, 119);
+            this.buttonSetAsDefault.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonSetAsDefault.Name = "buttonSetAsDefault";
-            this.buttonSetAsDefault.Size = new System.Drawing.Size(91, 23);
+            this.buttonSetAsDefault.Size = new System.Drawing.Size(122, 35);
             this.buttonSetAsDefault.TabIndex = 19;
             this.buttonSetAsDefault.Text = "Set as Default";
             this.buttonSetAsDefault.UseVisualStyleBackColor = true;
@@ -220,9 +239,9 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(583, 117);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(712, 162);
             this.Controls.Add(this.buttonSetAsDefault);
             this.Controls.Add(this.buttonSelectBinary);
             this.Controls.Add(this.comboBoxComPort);
@@ -242,7 +261,11 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxFile);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.MinimumSize = new System.Drawing.Size(716, 201);
             this.Name = "Form1";
             this.Text = "HC3 Flasher";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

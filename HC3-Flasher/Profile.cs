@@ -8,7 +8,7 @@ namespace HC3_Flasher
 {
 
     /// <summary>
-    /// Holds a single profile
+    /// Holds a single profile.
     /// </summary>
     class Profile
     {

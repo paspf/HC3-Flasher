@@ -9,66 +9,60 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-
-/*
- * HC3 Flasher
- * 2019 01 18
- * - First version to transmit compiled an linked binary file to HC3
- * 2019 01 23
- * - fixed: the broken com port selection
- * 2019 03 03
- * - added: manual adustment of serial parameters
- * - added: profile selector
- * - added: store profiles
- * 2019 10 03
- * - fixed: exceptions handeled
- * - added: option to edit profiles
- */
 namespace HC3_Flasher
 {
     public partial class Form1 : Form
     {
-        ProfileHandler loadProfiles;
+        XmlConfigHandler xmlConfig = new XmlConfigHandler();
         public Form1()
         {
             InitializeComponent();
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            textBoxCom.Text = "COM1";
-            textBoxFile.Text = "C:\\program.hc";
-            comboBoxParity.Items.Add("None");
-            comboBoxParity.Items.Add("Odd");
-            comboBoxParity.Items.Add("Even");
-            comboBoxParity.SelectedIndex = 0;
-            textBoxBaudRate.Text = "9600";
-            textBoxDataBits.Text = "8";
+            comboBoxParity.Items.AddRange(Enum.GetNames(typeof(Parity)));
             comboBoxStopBits.Items.Add("0");
             comboBoxStopBits.Items.Add("1");
             comboBoxStopBits.Items.Add("1.5");
             comboBoxStopBits.Items.Add("2");
-            comboBoxStopBits.SelectedIndex = 1;
 
-            loadProfiles = new ProfileHandler();
-            if (loadProfiles.loadProfiles() == 1)
+            if (xmlConfig.DefaultProfileName != "" && xmlConfig.Profiles.Exists(xmlConfig.DefaultProfileName))
             {
-                MessageBox.Show("Error in handeling HC3 Flasher Profiles.cfg!", "Error");
+                comboBoxProfileSelect.Text = xmlConfig.Profiles.Get[xmlConfig.Profiles.GetIndex(xmlConfig.DefaultProfileName)].Name;
+                ChangeLoadedProfile(xmlConfig.Profiles.GetIndex(xmlConfig.DefaultProfileName));
+            }
+            else 
+            {
+                // default values without default profule
+                textBoxFile.Text = "C:\\program.hc";
+                comboBoxParity.SelectedIndex = 0;
+                textBoxBaudRate.Text = "9600";
+                textBoxDataBits.Text = "8";
+                comboBoxStopBits.SelectedIndex = 1;
             }
             refreshComboBoxProfileSelect();
+            ShowAvailableComPorts();
         }
 
-        /*
-         * refreshComboBoxProfileSelect
-         * refresh the profiles shown in the
-         * profile selector comboBox
-         */
+        /// <summary>
+        /// refresh the profiles shown in the profile selector comboBox
+        /// </summary>
         private void refreshComboBoxProfileSelect()
         {
             comboBoxProfileSelect.Items.Clear();
-            for (int i = 0; i < loadProfiles.Profiles.Count; i++)
+            foreach (Profile p in xmlConfig.Profiles.Get)
             {
-                comboBoxProfileSelect.Items.Add(loadProfiles.Profiles.ElementAt(i).Name);
+                comboBoxProfileSelect.Items.Add(p.Name);
             }
+        }
+
+        /// <summary>
+        /// Add available com ports to ui
+        /// </summary>
+        private void ShowAvailableComPorts()
+        {
+            string[] ports = SerialPort.GetPortNames();
+            comboBoxComPort.Items.AddRange(ports);
         }
 
         private void FlashButton_Click(object sender, EventArgs e)
@@ -83,7 +77,7 @@ namespace HC3_Flasher
             bool portFound = false;
             for(int i = 0; i < ports.Length; i++)
             {
-                if(ports[i] == textBoxCom.Text)
+                if(ports[i] == comboBoxComPort.Text)
                 {
                     portFound = true;
                     break;
@@ -94,52 +88,26 @@ namespace HC3_Flasher
                 MessageBox.Show("Port not found!", "Error");
                 return;
             }
+            if (!File.Exists(textBoxFile.Text))
+            {
+                MessageBox.Show("File not Found!", "Error");
+                return;
+            }
 
             byte[] rawFile = File.ReadAllBytes(textBoxFile.Text);
 
-            Parity parity;
-            switch(profile.Parity)
-            {
-                case 1:
-                    parity = Parity.Odd;
-                    break;
-                case 2:
-                    parity = Parity.Even;
-                    break;
-                default:
-                    parity = Parity.None;
-                    break;
-            }
-
-            StopBits stopBit;
-            switch(profile.StopBits)
-            {
-                case 1:
-                    stopBit = StopBits.One;
-                    break;
-                case 2:
-                    stopBit = StopBits.Two;
-                    break;
-                case 3:
-                    stopBit = StopBits.OnePointFive;
-                    break;
-                default:
-                    stopBit = StopBits.None;
-                    break;
-            }
-
             SerialPort sp = new SerialPort();
-            sp.PortName = textBoxCom.Text;
+            sp.PortName = comboBoxComPort.Text;
             sp.BaudRate = profile.BaudRate;
-            sp.Parity = parity;
+            sp.Parity = profile.Parity;
             sp.DataBits = profile.DataBits;
-            sp.StopBits = stopBit;
+            sp.StopBits = profile.StopBits;
             try
             {
                 sp.Open();
             }
             catch (UnauthorizedAccessException) {
-                MessageBox.Show("Unable to acces COM Port: " + textBoxCom.Text, "HC3 Info");
+                MessageBox.Show("Unable to acces COM Port: " + comboBoxComPort.Text, "HC3 Info");
                 return;
             }
             
@@ -152,12 +120,23 @@ namespace HC3_Flasher
 
         private void comboBoxProfileSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
-            textBoxBaudRate.Text = loadProfiles.Profiles.ElementAt(comboBoxProfileSelect.SelectedIndex).BaudRate.ToString();
-            comboBoxParity.SelectedIndex = loadProfiles.Profiles.ElementAt(comboBoxProfileSelect.SelectedIndex).Parity;
-            textBoxDataBits.Text = loadProfiles.Profiles.ElementAt(comboBoxProfileSelect.SelectedIndex).DataBits.ToString();
-            comboBoxStopBits.SelectedIndex = loadProfiles.Profiles.ElementAt(comboBoxProfileSelect.SelectedIndex).StopBits;
-            textBoxCom.Text = loadProfiles.Profiles.ElementAt(comboBoxProfileSelect.SelectedIndex).DefaultPort;
-            textBoxFile.Text = loadProfiles.Profiles.ElementAt(comboBoxProfileSelect.SelectedIndex).DefaultPath;
+            ChangeLoadedProfile(comboBoxProfileSelect.SelectedIndex);
+        }
+
+        /// <summary>
+        /// Change the profile
+        /// </summary>
+        /// <param name="index">index of the new profile</param>
+        private void ChangeLoadedProfile(int index)
+        {
+            Profile currentProfile = xmlConfig.Profiles.Get[index];
+
+            textBoxBaudRate.Text = currentProfile.BaudRate.ToString();
+            comboBoxParity.SelectedIndex = (int)currentProfile.Parity;
+            textBoxDataBits.Text = currentProfile.DataBits.ToString();
+            comboBoxStopBits.Text = xmlConfig.Profiles.StopBitsEnumToString(currentProfile.StopBits);
+            comboBoxComPort.Text = currentProfile.DefaultPort;
+            textBoxFile.Text = currentProfile.DefaultPath;
         }
 
         private void storeProfileButton_Click(object sender, EventArgs e)
@@ -168,17 +147,17 @@ namespace HC3_Flasher
                 MessageBox.Show("Please enter a profile name", "HC3 Info");
             }
             // profile already exists
-            else if (loadProfiles.profileExists(comboBoxProfileSelect.Text))
+            else if (xmlConfig.Profiles.Exists(comboBoxProfileSelect.Text))
             {
-                DialogResult dialogResult = MessageBox.Show("Profile already exists!\nDo you want the replace the stored profile?", "HC3 Info", MessageBoxButtons.YesNo);
+                DialogResult dialogResult = MessageBox.Show("Profile already exists!\nDo you want to update the stored profile?", "HC3 Info", MessageBoxButtons.YesNo);
                 // overwrite profile
                 if (dialogResult == DialogResult.Yes)
                 {
                     Profile newProfile = checkConsistance();
                     if (newProfile != null)
                     {
-                        loadProfiles.dropProfile(loadProfiles.getProfileIndex(comboBoxProfileSelect.Text));
-                        loadProfiles.storeProfile(newProfile);
+                        xmlConfig.Profiles.Remove(comboBoxProfileSelect.SelectedIndex);
+                        xmlConfig.Profiles.Add(newProfile);
                         refreshComboBoxProfileSelect();
                     }
                 }
@@ -194,23 +173,21 @@ namespace HC3_Flasher
                 Profile newProfile = checkConsistance();
                 if(newProfile != null)
                 {
-                    loadProfiles.storeProfile(newProfile);
+                    xmlConfig.Profiles.Add(newProfile);
                     refreshComboBoxProfileSelect();
                 }
             }
         }
         private void dropProfileButton_Click(object sender, EventArgs e)
         {
-            loadProfiles.dropProfile(comboBoxProfileSelect.SelectedIndex);
+            xmlConfig.Profiles.Remove(comboBoxProfileSelect.SelectedIndex);
             refreshComboBoxProfileSelect();
         }
 
-        /*
-         * checkConsistance
-         * This function checks if the
-         * values entered in the fields
-         * are in the accepted ranges
-         */
+        /// <summary>
+        /// Check if the entered values have the correct format and create a profile with the values
+        /// </summary>
+        /// <returns>profile with current values</returns>
         private Profile checkConsistance()
         {
             int baudRate;
@@ -225,7 +202,45 @@ namespace HC3_Flasher
                 MessageBox.Show("Error with DataBits", "Error");
                 return null;
             }
-            return new Profile(comboBoxProfileSelect.Text, baudRate, comboBoxParity.SelectedIndex, dataBits, comboBoxStopBits.SelectedIndex, textBoxFile.Text, textBoxCom.Text);
+
+            return new Profile(comboBoxProfileSelect.Text, 
+                baudRate, 
+                xmlConfig.Profiles.ParityStringToEnum(comboBoxParity.Text), 
+                dataBits, 
+                xmlConfig.Profiles.StopBitsStringToEnum(comboBoxStopBits.Text), 
+                textBoxFile.Text, 
+                comboBoxComPort.Text);
+        }
+
+        private void buttonSelectBinary_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                InitialDirectory = @"C:\",
+                Title = "Browse all files",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+                RestoreDirectory = true,
+
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                textBoxFile.Text = openFileDialog1.FileName;
+            }
+        }
+
+        private void buttonSetAsDefault_Click(object sender, EventArgs e)
+        {
+            xmlConfig.DefaultProfileName = comboBoxProfileSelect.Text;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            xmlConfig.Store();
         }
     }
 }

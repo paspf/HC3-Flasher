@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.textBoxCom = new System.Windows.Forms.TextBox();
             this.textBoxFile = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -45,20 +44,17 @@
             this.comboBoxStopBits = new System.Windows.Forms.ComboBox();
             this.storeProfileButton = new System.Windows.Forms.Button();
             this.dropProfileButton = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBoxComPort = new System.Windows.Forms.ComboBox();
+            this.buttonSelectBinary = new System.Windows.Forms.Button();
+            this.buttonSetAsDefault = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // textBoxCom
-            // 
-            this.textBoxCom.Location = new System.Drawing.Point(72, 10);
-            this.textBoxCom.Name = "textBoxCom";
-            this.textBoxCom.Size = new System.Drawing.Size(384, 20);
-            this.textBoxCom.TabIndex = 0;
             // 
             // textBoxFile
             // 
             this.textBoxFile.Location = new System.Drawing.Point(72, 36);
             this.textBoxFile.Name = "textBoxFile";
-            this.textBoxFile.Size = new System.Drawing.Size(384, 20);
+            this.textBoxFile.Size = new System.Drawing.Size(347, 20);
             this.textBoxFile.TabIndex = 1;
             // 
             // label1
@@ -75,15 +71,15 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(13, 39);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(51, 13);
+            this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Flash File";
+            this.label2.Text = "Binary File";
             // 
             // FlashButton
             // 
-            this.FlashButton.Location = new System.Drawing.Point(462, 10);
+            this.FlashButton.Location = new System.Drawing.Point(502, 9);
             this.FlashButton.Name = "FlashButton";
-            this.FlashButton.Size = new System.Drawing.Size(82, 46);
+            this.FlashButton.Size = new System.Drawing.Size(69, 46);
             this.FlashButton.TabIndex = 4;
             this.FlashButton.Text = "Flash!";
             this.FlashButton.UseVisualStyleBackColor = true;
@@ -185,11 +181,52 @@
             this.dropProfileButton.UseVisualStyleBackColor = true;
             this.dropProfileButton.Click += new System.EventHandler(this.dropProfileButton_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(483, 99);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(61, 13);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "2020-11-14";
+            // 
+            // comboBoxComPort
+            // 
+            this.comboBoxComPort.FormattingEnabled = true;
+            this.comboBoxComPort.Location = new System.Drawing.Point(72, 9);
+            this.comboBoxComPort.Name = "comboBoxComPort";
+            this.comboBoxComPort.Size = new System.Drawing.Size(347, 21);
+            this.comboBoxComPort.TabIndex = 17;
+            // 
+            // buttonSelectBinary
+            // 
+            this.buttonSelectBinary.Location = new System.Drawing.Point(425, 10);
+            this.buttonSelectBinary.Name = "buttonSelectBinary";
+            this.buttonSelectBinary.Size = new System.Drawing.Size(71, 46);
+            this.buttonSelectBinary.TabIndex = 18;
+            this.buttonSelectBinary.Text = "Select\r\nBinary";
+            this.buttonSelectBinary.UseVisualStyleBackColor = true;
+            this.buttonSelectBinary.Click += new System.EventHandler(this.buttonSelectBinary_Click);
+            // 
+            // buttonSetAsDefault
+            // 
+            this.buttonSetAsDefault.Location = new System.Drawing.Point(179, 88);
+            this.buttonSetAsDefault.Name = "buttonSetAsDefault";
+            this.buttonSetAsDefault.Size = new System.Drawing.Size(91, 23);
+            this.buttonSetAsDefault.TabIndex = 19;
+            this.buttonSetAsDefault.Text = "Set as Default";
+            this.buttonSetAsDefault.UseVisualStyleBackColor = true;
+            this.buttonSetAsDefault.Click += new System.EventHandler(this.buttonSetAsDefault_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(556, 118);
+            this.ClientSize = new System.Drawing.Size(583, 117);
+            this.Controls.Add(this.buttonSetAsDefault);
+            this.Controls.Add(this.buttonSelectBinary);
+            this.Controls.Add(this.comboBoxComPort);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.dropProfileButton);
             this.Controls.Add(this.storeProfileButton);
             this.Controls.Add(this.comboBoxStopBits);
@@ -205,10 +242,10 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxFile);
-            this.Controls.Add(this.textBoxCom);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "HC3 Flasher (2019 10 01)";
+            this.Text = "HC3 Flasher";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -216,8 +253,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBoxCom;
         private System.Windows.Forms.TextBox textBoxFile;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -233,6 +268,10 @@
         private System.Windows.Forms.ComboBox comboBoxStopBits;
         private System.Windows.Forms.Button storeProfileButton;
         private System.Windows.Forms.Button dropProfileButton;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox comboBoxComPort;
+        private System.Windows.Forms.Button buttonSelectBinary;
+        private System.Windows.Forms.Button buttonSetAsDefault;
     }
 }
 

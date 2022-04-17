@@ -46,8 +46,9 @@
             this.dropProfileButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxComPort = new System.Windows.Forms.ComboBox();
-            this.buttonSelectBinary = new System.Windows.Forms.Button();
             this.buttonSetAsDefault = new System.Windows.Forms.Button();
+            this.buttonRefreshCom = new System.Windows.Forms.Button();
+            this.buttonSelectFile = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBoxFile
@@ -55,7 +56,7 @@
             this.textBoxFile.Location = new System.Drawing.Point(103, 49);
             this.textBoxFile.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxFile.Name = "textBoxFile";
-            this.textBoxFile.Size = new System.Drawing.Size(408, 22);
+            this.textBoxFile.Size = new System.Drawing.Size(420, 22);
             this.textBoxFile.TabIndex = 1;
             // 
             // label1
@@ -64,7 +65,7 @@
             this.label1.Location = new System.Drawing.Point(15, 17);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 16);
+            this.label1.Size = new System.Drawing.Size(64, 16);
             this.label1.TabIndex = 2;
             this.label1.Text = "COM Port";
             // 
@@ -74,7 +75,7 @@
             this.label2.Location = new System.Drawing.Point(15, 52);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 16);
+            this.label2.Size = new System.Drawing.Size(70, 16);
             this.label2.TabIndex = 3;
             this.label2.Text = "Binary File";
             // 
@@ -113,7 +114,7 @@
             this.labelBaudRate.Location = new System.Drawing.Point(154, 87);
             this.labelBaudRate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelBaudRate.Name = "labelBaudRate";
-            this.labelBaudRate.Size = new System.Drawing.Size(72, 16);
+            this.labelBaudRate.Size = new System.Drawing.Size(71, 16);
             this.labelBaudRate.TabIndex = 7;
             this.labelBaudRate.Text = "Baud Rate";
             // 
@@ -123,7 +124,7 @@
             this.labelParity.Location = new System.Drawing.Point(327, 87);
             this.labelParity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelParity.Name = "labelParity";
-            this.labelParity.Size = new System.Drawing.Size(42, 16);
+            this.labelParity.Size = new System.Drawing.Size(41, 16);
             this.labelParity.TabIndex = 8;
             this.labelParity.Text = "Parity";
             // 
@@ -143,7 +144,7 @@
             this.labelDataBits.Location = new System.Drawing.Point(465, 87);
             this.labelDataBits.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelDataBits.Name = "labelDataBits";
-            this.labelDataBits.Size = new System.Drawing.Size(59, 16);
+            this.labelDataBits.Size = new System.Drawing.Size(58, 16);
             this.labelDataBits.TabIndex = 10;
             this.labelDataBits.Text = "DataBits";
             // 
@@ -161,7 +162,7 @@
             this.labelStopBits.Location = new System.Drawing.Point(582, 87);
             this.labelStopBits.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelStopBits.Name = "labelStopBits";
-            this.labelStopBits.Size = new System.Drawing.Size(58, 16);
+            this.labelStopBits.Size = new System.Drawing.Size(57, 16);
             this.labelStopBits.TabIndex = 12;
             this.labelStopBits.Text = "StopBits";
             // 
@@ -199,12 +200,12 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(591, 133);
+            this.label3.Location = new System.Drawing.Point(598, 138);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 16);
+            this.label3.Size = new System.Drawing.Size(106, 16);
             this.label3.TabIndex = 16;
-            this.label3.Text = "2020-11-14";
+            this.label3.Text = "v1.1 (2022-04-16)";
             // 
             // comboBoxComPort
             // 
@@ -212,19 +213,8 @@
             this.comboBoxComPort.Location = new System.Drawing.Point(103, 11);
             this.comboBoxComPort.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboBoxComPort.Name = "comboBoxComPort";
-            this.comboBoxComPort.Size = new System.Drawing.Size(408, 24);
+            this.comboBoxComPort.Size = new System.Drawing.Size(420, 24);
             this.comboBoxComPort.TabIndex = 17;
-            // 
-            // buttonSelectBinary
-            // 
-            this.buttonSelectBinary.Location = new System.Drawing.Point(524, 11);
-            this.buttonSelectBinary.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.buttonSelectBinary.Name = "buttonSelectBinary";
-            this.buttonSelectBinary.Size = new System.Drawing.Size(88, 63);
-            this.buttonSelectBinary.TabIndex = 18;
-            this.buttonSelectBinary.Text = "Select\r\nBinary";
-            this.buttonSelectBinary.UseVisualStyleBackColor = true;
-            this.buttonSelectBinary.Click += new System.EventHandler(this.buttonSelectBinary_Click);
             // 
             // buttonSetAsDefault
             // 
@@ -237,13 +227,36 @@
             this.buttonSetAsDefault.UseVisualStyleBackColor = true;
             this.buttonSetAsDefault.Click += new System.EventHandler(this.buttonSetAsDefault_Click);
             // 
+            // buttonRefreshCom
+            // 
+            this.buttonRefreshCom.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonRefreshCom.Location = new System.Drawing.Point(532, 12);
+            this.buttonRefreshCom.Name = "buttonRefreshCom";
+            this.buttonRefreshCom.Size = new System.Drawing.Size(37, 62);
+            this.buttonRefreshCom.TabIndex = 20;
+            this.buttonRefreshCom.Text = "↻";
+            this.buttonRefreshCom.UseVisualStyleBackColor = true;
+            this.buttonRefreshCom.Click += new System.EventHandler(this.buttonRefreshCom_Click);
+            // 
+            // buttonSelectFile
+            // 
+            this.buttonSelectFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonSelectFile.Location = new System.Drawing.Point(575, 12);
+            this.buttonSelectFile.Name = "buttonSelectFile";
+            this.buttonSelectFile.Size = new System.Drawing.Size(39, 62);
+            this.buttonSelectFile.TabIndex = 21;
+            this.buttonSelectFile.Text = "📁";
+            this.buttonSelectFile.UseVisualStyleBackColor = true;
+            this.buttonSelectFile.Click += new System.EventHandler(this.buttonSelectFile_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(712, 162);
+            this.Controls.Add(this.buttonSelectFile);
+            this.Controls.Add(this.buttonRefreshCom);
             this.Controls.Add(this.buttonSetAsDefault);
-            this.Controls.Add(this.buttonSelectBinary);
             this.Controls.Add(this.comboBoxComPort);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dropProfileButton);
@@ -261,7 +274,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxFile);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -293,8 +306,9 @@
         private System.Windows.Forms.Button dropProfileButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBoxComPort;
-        private System.Windows.Forms.Button buttonSelectBinary;
         private System.Windows.Forms.Button buttonSetAsDefault;
+        private System.Windows.Forms.Button buttonRefreshCom;
+        private System.Windows.Forms.Button buttonSelectFile;
     }
 }
 

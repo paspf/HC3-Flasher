@@ -26,6 +26,9 @@ namespace HC3_Flasher
             comboBoxStopBits.Items.Add("1.5");
             comboBoxStopBits.Items.Add("2");
 
+            refreshComboBoxProfileSelect();
+            ShowAvailableComPorts();
+
             if (xmlConfig.DefaultProfileName != "" && xmlConfig.Profiles.Exists(xmlConfig.DefaultProfileName))
             {
                 comboBoxProfileSelect.Text = xmlConfig.Profiles.Get[xmlConfig.Profiles.GetIndex(xmlConfig.DefaultProfileName)].Name;
@@ -33,15 +36,13 @@ namespace HC3_Flasher
             }
             else 
             {
-                // default values without default profule
+                // default values
                 textBoxFile.Text = "C:\\program.hc";
                 comboBoxParity.SelectedIndex = 0;
                 textBoxBaudRate.Text = "9600";
                 textBoxDataBits.Text = "8";
                 comboBoxStopBits.SelectedIndex = 1;
             }
-            refreshComboBoxProfileSelect();
-            ShowAvailableComPorts();
         }
 
         /// <summary>
@@ -68,7 +69,7 @@ namespace HC3_Flasher
 
         private void FlashButton_Click(object sender, EventArgs e)
         {
-            Profile profile = checkConsistance();
+            Profile profile = checkProfileValidity();
             if(profile == null)
             {
                 return;
@@ -154,7 +155,7 @@ namespace HC3_Flasher
                 // overwrite profile
                 if (dialogResult == DialogResult.Yes)
                 {
-                    Profile newProfile = checkConsistance();
+                    Profile newProfile = checkProfileValidity();
                     if (newProfile != null)
                     {
                         xmlConfig.Profiles.Remove(comboBoxProfileSelect.SelectedIndex);
@@ -171,7 +172,7 @@ namespace HC3_Flasher
             // create new profile
             else
             {
-                Profile newProfile = checkConsistance();
+                Profile newProfile = checkProfileValidity();
                 if(newProfile != null)
                 {
                     xmlConfig.Profiles.Add(newProfile);
@@ -186,10 +187,10 @@ namespace HC3_Flasher
         }
 
         /// <summary>
-        /// Check if the entered values have the correct format and create a profile with the values
+        /// Check if the entered values have the correct format and return a profile object with the values
         /// </summary>
         /// <returns>profile with current values</returns>
-        private Profile checkConsistance()
+        private Profile checkProfileValidity()
         {
             int baudRate;
             int dataBits;
@@ -213,27 +214,6 @@ namespace HC3_Flasher
                 comboBoxComPort.Text);
         }
 
-        private void buttonSelectBinary_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog
-            {
-                InitialDirectory = @"C:\",
-                Title = "Browse all files",
-
-                CheckFileExists = true,
-                CheckPathExists = true,
-                RestoreDirectory = true,
-
-                ReadOnlyChecked = true,
-                ShowReadOnly = true
-            };
-
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                textBoxFile.Text = openFileDialog1.FileName;
-            }
-        }
-
         private void buttonSetAsDefault_Click(object sender, EventArgs e)
         {
             xmlConfig.DefaultProfileName = comboBoxProfileSelect.Text;
@@ -242,6 +222,30 @@ namespace HC3_Flasher
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             xmlConfig.Store();
+        }
+
+        private void buttonRefreshCom_Click(object sender, EventArgs e)
+        {
+            comboBoxComPort.Items.Clear();
+            ShowAvailableComPorts();
+        }
+
+        private void buttonSelectFile_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                // Open file browser at location "My Computer"
+                openFileDialog.InitialDirectory = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}";
+                openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 2;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Get the path of specified file
+                    textBoxFile.Text = openFileDialog.FileName;
+                }
+            }
         }
     }
 }
